@@ -17,6 +17,7 @@ router.get("/", function (_req: Request, res: Response) {
 router.post("/", async (req: Request, res: Response) => {
 
     const { username, password }: { username: string, password: string } = req.body;
+    console.log("TRYING LOGIGNG IN : " + username)
     await prisma.user.findFirst({
         where: {
             email: {
@@ -28,7 +29,11 @@ router.post("/", async (req: Request, res: Response) => {
             if (User && User.password === password) {
                 const token = await generateToken();
                 const results = await successfulLogin(User, token);
-                return res.json(results).cookie("token", token)
+                res.cookie("token", token, {
+                    maxAge: 1800000,
+                    httpOnly: true
+                })
+                return res.json(results)
             }
             else return res.json(false);
         })
@@ -36,11 +41,11 @@ router.post("/", async (req: Request, res: Response) => {
 
 
 async function successfulLogin(user: UserType, token: string) {
-
     const rightNow = await timeStamp();
     const dataToSet = {
         id: user.id,
-        time: rightNow
+        time: rightNow,
+        admin: user.admin ? user.admin : 0
     }
     await client.set(token, JSON.stringify(dataToSet));
     return {

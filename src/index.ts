@@ -1,4 +1,5 @@
 import express, { Express, Request, Response } from 'express';
+import cors from "cors";
 import dotenv from 'dotenv';
 import loginRoutes from './routes/login';
 import adminRoutes from "./routes/admin"
@@ -15,6 +16,9 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
+app.use(cors({
+    origin: "http://localhost:3000", credentials: true
+}))
 app.use(cookieParser())
 
 app.get('/', async (req: Request, res: Response) => {

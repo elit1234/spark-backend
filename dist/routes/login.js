@@ -24,6 +24,7 @@ router.get("/", function (_req, res) {
 });
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, password } = req.body;
+    console.log("TRYING LOGIGNG IN : " + username);
     yield prisma.user.findFirst({
         where: {
             email: {
@@ -35,7 +36,11 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (User && User.password === password) {
             const token = yield (0, generateToken_1.default)();
             const results = yield successfulLogin(User, token);
-            return res.json(results).cookie("token", token);
+            res.cookie("token", token, {
+                maxAge: 1800000,
+                httpOnly: true
+            });
+            return res.json(results);
         }
         else
             return res.json(false);
@@ -46,7 +51,8 @@ function successfulLogin(user, token) {
         const rightNow = yield (0, timeStamp_1.default)();
         const dataToSet = {
             id: user.id,
-            time: rightNow
+            time: rightNow,
+            admin: user.admin ? user.admin : 0
         };
         yield redisClient_1.default.set(token, JSON.stringify(dataToSet));
         return {

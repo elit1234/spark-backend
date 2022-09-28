@@ -6,10 +6,10 @@ import { createClient } from 'redis';
 
 const client = createClient({
     socket: {
-        host: '192.168.1.148',
-        port: 6379,
+        host: process.env.REDIS_IP,
+        port: Number(process.env.REDIS_PORT)
     },
-    password: "Kawasaki711123"
+    password: process.env.REDIS_PASS
 });
 
 client.on('error', (err) => console.log('Redis Client Error', err));
