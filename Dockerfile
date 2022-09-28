@@ -12,13 +12,14 @@ COPY package*.json ./
 # If you are building your code for production
 RUN npm install
 
+#Prisma generation
+RUN npx prisma generate
+
 COPY . .
 
 # TSC compilation
 RUN npx tsc
 
-#Prisma generation
-RUN npx prisma generate
 
 #*** Bundle app source ***
 FROM node:16
