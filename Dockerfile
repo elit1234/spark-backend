@@ -13,7 +13,7 @@ COPY prisma ./prisma/
 
 # RUN npm install
 # If you are building your code for production
-RUN npm ci --quit
+RUN npm ci --quiet
 
 COPY ./prisma prisma
 
