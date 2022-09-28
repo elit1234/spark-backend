@@ -27,8 +27,15 @@ app.use(body_parser_1.default.urlencoded({
     extended: true
 }));
 app.use((0, cors_1.default)({
-    origin: "http://localhost:3000", credentials: true
+    origin: "https://localdev.elijames.xyz", credentials: true
 }));
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+});
 app.use((0, cookie_parser_1.default)());
 app.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.send('Express + TypeScript Server');
