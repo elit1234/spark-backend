@@ -1,32 +1,42 @@
-# Build image
-FROM node:16.13-alpine as builder
-WORKDIR /app
+#Build
 
-# Not sure if you will need this
-# RUN apk add --update openssl
+FROM node:16 AS build
 
+# Create app directory
+WORKDIR /usr/src/app
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
 COPY package*.json ./
-RUN npm ci --quiet
+COPY prisma ./prisma/
+
+# RUN npm install
+# If you are building your code for production
+RUN npm ci --quit
 
 COPY ./prisma prisma
-COPY ./src src
-RUN npm run build
 
-# Production image
+COPY . .
 
-FROM node:16.13-alpine
-WORKDIR /app
-ENV NODE_ENV production
+# TSC compilation
+RUN npx tsc
 
-COPY package*.json ./
-RUN npm ci --only=production --quiet
 
-COPY --chown=node:node --from=builder /app/prisma /app/prisma
-COPY --chown=node:node --from=builder /app/src /app/src
+#*** Bundle app source ***
+FROM node:16
+WORKDIR /usr/src/app
 
-USER node
+COPY package.json .
+RUN npm install
+
+#Copy the distribution folder from build stage
+COPY --from=build /usr/src/app/dist dist
+
 
 EXPOSE 8111
 
+#Prisma generation
+RUN npx prisma generate
 CMD [ "node", "dist/index.js" ]
 
