@@ -18,5 +18,7 @@ COPY . .
 
 EXPOSE 8111
 
+RUN npx prisma generate
+
 CMD [ "node", "dist/index.js" ]
 
