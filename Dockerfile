@@ -28,9 +28,10 @@ RUN npm install
 #Copy the distribution folder from build stage
 COPY --from=build /usr/src/app/dist dist
 
-#Prisma generation
-RUN npx prisma generate
 
 EXPOSE 8111
+
+#Prisma generation
+RUN npx prisma generate
 CMD [ "node", "dist/index.js" ]
 
