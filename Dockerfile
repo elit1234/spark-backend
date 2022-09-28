@@ -12,10 +12,10 @@ COPY package*.json ./
 # If you are building your code for production
 RUN npm install
 
+COPY . .
+
 #Prisma generation
 RUN npx prisma generate
-
-COPY . .
 
 # TSC compilation
 RUN npx tsc
