@@ -14,9 +14,6 @@ RUN npm install
 
 COPY . .
 
-#Prisma generation
-RUN npx prisma generate
-
 # TSC compilation
 RUN npx tsc
 
@@ -27,6 +24,9 @@ WORKDIR /usr/src/app
 
 COPY package.json .
 RUN npm install
+
+#Prisma generation
+RUN npx prisma generate
 
 #Copy the distribution folder from build stage
 COPY --from=build /usr/src/app/dist dist
