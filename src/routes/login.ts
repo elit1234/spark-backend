@@ -30,9 +30,8 @@ router.post("/", async (req: Request, res: Response) => {
                 const token = await generateToken();
                 const results = await successfulLogin(User, token);
                 res.cookie("token", token, {
-                    httpOnly: true,
                     secure: true,
-                    sameSite: "none"
+                    sameSite: 'strict'
                 })
                 return res.json(results)
             }
