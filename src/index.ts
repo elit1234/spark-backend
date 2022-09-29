@@ -11,22 +11,19 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT;
 
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'DELETE, PUT, GET, POST');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
 
-const corsOptions = {
-    origin: [
-        "https://localdev.elijames.xyz",
-        "http://localhost:3000"
-    ],
-    credentials: true,
-    exposedHeaders: ["set-cookie"]
-}
-
-app.use("/", cors(corsOptions), Router);
 
 // app.use(cors({
 //     origin: "https://localdev.elijames.xyz", credentials: true
