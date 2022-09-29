@@ -32,7 +32,7 @@ router.post("/", async (req: Request, res: Response) => {
                 res.cookie("token", token, {
                     maxAge: 1800000,
                     secure: true,
-                    sameSite: false
+                    sameSite: "none"
                 })
                 return res.json(results)
             }
