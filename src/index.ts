@@ -1,4 +1,4 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Express, Request, Response, Router } from 'express';
 import cors from "cors";
 import dotenv from 'dotenv';
 import loginRoutes from './routes/login';
@@ -16,17 +16,29 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-app.use(cors({
-    origin: "https://localdev.elijames.xyz", credentials: true
-}))
 
-app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin', 'https://localdev.elijames.xyz');
-    res.setHeader('Access-Control-Allow-Credentials', "true");
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    next();
-});
+const corsOptions = {
+    origin: [
+        "https://localdev.elijames.xyz",
+        "http://localhost:3000"
+    ],
+    credentials: true,
+    exposedHeaders: ["set-cookie"]
+}
+
+app.use("/", cors(corsOptions), Router);
+
+// app.use(cors({
+//     origin: "https://localdev.elijames.xyz", credentials: true
+// }))
+
+// app.use(function (req, res, next) {
+//     res.setHeader('Access-Control-Allow-Origin', 'https://localdev.elijames.xyz');
+//     res.setHeader('Access-Control-Allow-Credentials', "true");
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//     next();
+// });
 
 app.use(cookieParser())
 
