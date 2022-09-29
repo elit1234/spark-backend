@@ -14,7 +14,7 @@ const port = process.env.PORT;
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://localdev.elijames.xyz');
+    res.setHeader('Access-Control-Allow-Origin', 'https://.elijames.xyz');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
