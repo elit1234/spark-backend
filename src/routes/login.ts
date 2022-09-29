@@ -31,7 +31,8 @@ router.post("/", async (req: Request, res: Response) => {
                 const results = await successfulLogin(User, token);
                 res.cookie("token", token, {
                     maxAge: 1800000,
-                    secure: true
+                    secure: true,
+                    sameSite: false
                 })
                 return res.json(results)
             }
