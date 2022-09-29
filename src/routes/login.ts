@@ -33,7 +33,7 @@ router.post("/", async (req: Request, res: Response) => {
                     httpOnly: true,
                     secure: true,
                     sameSite: 'strict',
-                    domain: "https://localdev.elijames.xyz"
+                    domain: "elijames.xyz"
                 })
                 return res.json(results)
             }
