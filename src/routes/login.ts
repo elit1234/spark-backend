@@ -32,8 +32,8 @@ router.post("/", async (req: Request, res: Response) => {
                 res.cookie("token", token, {
                     httpOnly: true,
                     secure: true,
-                    // sameSite: 'strict',
-                    // domain: "localhost"
+                    sameSite: 'strict',
+                    domain: "elijames.xyz"
                 })
                 return res.json(results)
             }
