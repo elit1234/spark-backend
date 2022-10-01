@@ -37,8 +37,10 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             const token = yield (0, generateToken_1.default)();
             const results = yield successfulLogin(User, token);
             res.cookie("token", token, {
-                maxAge: 1800000,
-                httpOnly: true
+                httpOnly: true,
+                secure: true,
+                // sameSite: 'strict',
+                // domain: "localhost"
             });
             return res.json(results);
         }

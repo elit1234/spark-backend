@@ -1,5 +1,11 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
 model User {
   id       Int     @id @default(autoincrement())
@@ -9,11 +15,16 @@ model User {
   admin    Int?
 }
 
-generator client {
-  provider = "prisma-client-js"
-}
-
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+model Plan {
+  id         Int     @id @default(autoincrement())
+  name       String
+  category   Int
+  price      Decimal @default(0) @db.Money
+  iconUrl    String? @db.VarChar(100)
+  dataAmount String? @db.VarChar(200)
+  dataIcon   String? @db.VarChar(200)
+  smsIcon    String? @db.VarChar(200)
+  callsIcon  String? @db.VarChar(200)
+  smsAmount  String? @db.VarChar(200)
+  callAmount String? @db.VarChar(200)
 }
