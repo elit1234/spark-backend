@@ -16,15 +16,22 @@ model User {
 }
 
 model Plan {
-  id         Int     @id @default(autoincrement())
-  name       String
-  category   Int
-  price      Decimal @default(0) @db.Money
-  iconUrl    String? @db.VarChar(100)
-  dataAmount String? @db.VarChar(200)
-  dataIcon   String? @db.VarChar(200)
-  smsIcon    String? @db.VarChar(200)
-  callsIcon  String? @db.VarChar(200)
-  smsAmount  String? @db.VarChar(200)
-  callAmount String? @db.VarChar(200)
+  id          Int     @id @default(autoincrement())
+  name        String
+  category    Int
+  price       Decimal @default(0) @db.Money
+  iconUrl     String? @db.VarChar(100)
+  dataAmount  String? @db.VarChar(200)
+  dataIcon    String? @db.VarChar(200)
+  smsIcon     String? @db.VarChar(200)
+  callsIcon   String? @db.VarChar(200)
+  smsAmount   String? @db.VarChar(200)
+  callAmount  String? @db.VarChar(200)
+  subCategory Int     @default(1)
+}
+
+model Category {
+  categoryId    Int     @id @default(autoincrement())
+  categoryName  String? @db.VarChar(120)
+  categoryLabel String? @db.VarChar(120)
 }

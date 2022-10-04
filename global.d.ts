@@ -18,4 +18,8 @@ type PlanType = {
     dataIcon: string;
     smsIcon: string;
     callsIcon: string;
+    subCategory: number;
+    categoryLabel?: string;
+    categoryName?: string;
+    categoryId?: number;
 }
