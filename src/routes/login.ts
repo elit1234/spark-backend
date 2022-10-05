@@ -1,13 +1,13 @@
 
 
 import express, { Request, Response } from 'express';
-import { PrismaClient } from "@prisma/client"
 import client from '../redisClient';
 import generateToken from '../func/generateToken';
 import timeStamp from '../func/timeStamp';
+import { prisma } from '../prismaClient';
+import { UserType } from '../../global';
 
 const router = express.Router();
-const prisma = new PrismaClient()
 
 
 router.get("/", function (_req: Request, res: Response) {

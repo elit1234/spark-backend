@@ -6,7 +6,7 @@ type UserType = {
     admin?: number;
 }
 
-type PlanType = {
+export type PlanType = {
     id: number;
     name: string;
     category: number;

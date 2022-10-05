@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express"
 import { PrismaClient } from "@prisma/client"
+import { PlanType } from "../../global";
 
 
 const router = express.Router();

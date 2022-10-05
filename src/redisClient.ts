@@ -6,8 +6,8 @@ import { createClient } from 'redis';
 
 const client = createClient({
     socket: {
-        host: process.env.REDIS_IP,
-        port: Number(process.env.REDIS_PORT)
+        host: "192.168.1.148",
+        port: 6379
     },
     password: process.env.REDIS_PASS
 });

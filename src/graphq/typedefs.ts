@@ -19,9 +19,26 @@ const typeDefs = gql`
         categoryName: String
         categoryId: Int
     }
+    type Category {
+        id: Int!
+        label: String!
+        name: String!
+    }
+    type MainCategory {
+      id: ID!
+      name: String!
+      internalName: String!
+      categories: [Category]
+    }
+    type PlansAndCategories {
+      plans: [Plan]
+      categories: [Category]
+      mainCategories: [MainCategory]
+    }
   
   type Query {
-    plans: Plan
+    plans(category: Int): PlansAndCategories
+    mainCategories: [MainCategory]
   }
 `
 

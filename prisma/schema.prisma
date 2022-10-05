@@ -35,3 +35,9 @@ model Category {
   categoryName  String? @db.VarChar(120)
   categoryLabel String? @db.VarChar(120)
 }
+
+model MainCategory {
+  id           Int    @id @default(autoincrement())
+  name         String @db.VarChar(120)
+  internalName String @db.VarChar(120)
+}
