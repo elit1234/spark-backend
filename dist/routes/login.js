@@ -22,30 +22,36 @@ router.get("/", function (_req, res) {
     return res.json("LOGIN HERE");
 });
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { username, password } = req.body;
-    console.log("TRYING LOGIGNG IN : " + username);
-    yield prismaClient_1.prisma.user.findFirst({
-        where: {
-            email: {
-                equals: username
+    try {
+        const { username, password } = req.body;
+        console.log("TRYING LOGIGNG IN : " + username);
+        yield prismaClient_1.prisma.user.findFirst({
+            where: {
+                email: {
+                    equals: username
+                }
             }
-        }
-    })
-        .then((User) => __awaiter(void 0, void 0, void 0, function* () {
-        if (User && User.password === password) {
-            const token = yield (0, generateToken_1.default)();
-            const results = yield successfulLogin(User, token);
-            res.cookie("token", token, {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'strict',
-                domain: "elijames.xyz"
-            });
-            return res.json(results);
-        }
-        else
-            return res.json(false);
-    }));
+        })
+            .then((User) => __awaiter(void 0, void 0, void 0, function* () {
+            if (User && User.password === password) {
+                const token = yield (0, generateToken_1.default)();
+                const results = yield successfulLogin(User, token);
+                res.cookie("token", token, {
+                    httpOnly: true,
+                    secure: true,
+                    sameSite: 'strict',
+                    domain: "elijames.xyz"
+                });
+                return res.json(results);
+            }
+            else
+                return res.json(false);
+        }));
+    }
+    catch (err) {
+        console.log("ERROR::::");
+        console.log(err);
+    }
 }));
 function successfulLogin(user, token) {
     return __awaiter(this, void 0, void 0, function* () {

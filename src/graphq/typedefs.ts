@@ -28,6 +28,7 @@ const typeDefs = gql`
       id: ID!
       name: String!
       internalName: String!
+      altName: String!
       categories: [Category]
     }
     type PlansAndCategories {
@@ -35,9 +36,15 @@ const typeDefs = gql`
       categories: [Category]
       mainCategories: [MainCategory]
     }
+    type PlansByNameAndCategories {
+      plans: [Plan]
+      categories: [Category]
+      mainCategory: MainCategory
+    }
   
   type Query {
     plans(category: Int): PlansAndCategories
+    plansByName(categoryName: String): PlansByNameAndCategories
     mainCategories: [MainCategory]
   }
 `

@@ -37,7 +37,8 @@ model Category {
 }
 
 model MainCategory {
-  id           Int    @id @default(autoincrement())
-  name         String @db.VarChar(120)
-  internalName String @db.VarChar(120)
+  id           Int     @id @default(autoincrement())
+  name         String  @db.VarChar(120)
+  internalName String  @db.VarChar(120)
+  altName      String? @db.VarChar(120)
 }

@@ -15,30 +15,35 @@ router.get("/", function (_req: Request, res: Response) {
 })
 
 router.post("/", async (req: Request, res: Response) => {
-
-    const { username, password }: { username: string, password: string } = req.body;
-    console.log("TRYING LOGIGNG IN : " + username)
-    await prisma.user.findFirst({
-        where: {
-            email: {
-                equals: username
+    try {
+        const { username, password }: { username: string, password: string } = req.body;
+        console.log("TRYING LOGIGNG IN : " + username)
+        await prisma.user.findFirst({
+            where: {
+                email: {
+                    equals: username
+                }
             }
-        }
-    })
-        .then(async (User: any) => {
-            if (User && User.password === password) {
-                const token = await generateToken();
-                const results = await successfulLogin(User, token);
-                res.cookie("token", token, {
-                    httpOnly: true,
-                    secure: true,
-                    sameSite: 'strict',
-                    domain: "elijames.xyz"
-                })
-                return res.json(results)
-            }
-            else return res.json(false);
         })
+            .then(async (User: any) => {
+                if (User && User.password === password) {
+                    const token = await generateToken();
+                    const results = await successfulLogin(User, token);
+                    res.cookie("token", token, {
+                        httpOnly: true,
+                        secure: true,
+                        sameSite: 'strict',
+                        domain: "elijames.xyz"
+                    })
+                    return res.json(results)
+                }
+                else return res.json(false);
+            })
+    }
+    catch (err) {
+        console.log("ERROR::::")
+        console.log(err)
+    }
 })
 
 

@@ -9,7 +9,7 @@ const client = createClient({
         host: "192.168.1.148",
         port: 6379
     },
-    password: process.env.REDIS_PASS
+    password: "Kawasaki711123"
 });
 
 client.on('error', (err) => console.log('Redis Client Error', err));
