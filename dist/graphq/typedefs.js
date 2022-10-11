@@ -21,8 +21,9 @@ const typeDefs = (0, apollo_server_express_1.gql) `
     }
     type Category {
         id: Int!
-        label: String!
-        name: String!
+        categoryName: String!
+        categoryLabel: String!
+        mainCatId: Int!
     }
     type MainCategory {
       id: ID!
@@ -46,6 +47,7 @@ const typeDefs = (0, apollo_server_express_1.gql) `
     plans(category: Int): PlansAndCategories
     plansByName(categoryName: String): PlansByNameAndCategories
     mainCategories: [MainCategory]
+    getCategories(mainCat: String): [Category]
   }
 `;
 exports.default = typeDefs;

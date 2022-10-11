@@ -29,8 +29,8 @@ loadFunc()
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://localdev.elijames.xyz');
-    // res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    // res.setHeader('Access-Control-Allow-Origin', 'https://localdev.elijames.xyz');
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -63,6 +63,11 @@ app.use('/login', loginRoutes);
 app.use("/admin", adminRoutes)
 
 app.use("/shop", shopRoutes);
+
+app.get("/logout", async (req: Request, res: Response) => {
+    res.clearCookie("token", { secure: true, httpOnly: true })
+    res.end();
+})
 
 
 app.listen(port, () => {

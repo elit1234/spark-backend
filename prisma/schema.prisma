@@ -34,6 +34,7 @@ model Category {
   categoryId    Int     @id @default(autoincrement())
   categoryName  String? @db.VarChar(120)
   categoryLabel String? @db.VarChar(120)
+  mainCatId     Int?
 }
 
 model MainCategory {

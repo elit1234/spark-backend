@@ -20,9 +20,10 @@ const typeDefs = gql`
         categoryId: Int
     }
     type Category {
-        id: Int!
-        label: String!
-        name: String!
+        categoryId: Int!
+        categoryName: String!
+        categoryLabel: String!
+        mainCatId: Int!
     }
     type MainCategory {
       id: ID!
@@ -31,11 +32,6 @@ const typeDefs = gql`
       altName: String!
       categories: [Category]
     }
-    type PlansAndCategories {
-      plans: [Plan]
-      categories: [Category]
-      mainCategories: [MainCategory]
-    }
     type PlansByNameAndCategories {
       plans: [Plan]
       categories: [Category]
@@ -43,9 +39,9 @@ const typeDefs = gql`
     }
   
   type Query {
-    plans(category: Int): PlansAndCategories
-    plansByName(categoryName: String): PlansByNameAndCategories
+    plansByName(categoryName: String, categoryId: Int): PlansByNameAndCategories
     mainCategories: [MainCategory]
+    getCategories(mainCat: String): [Category]
   }
 `
 

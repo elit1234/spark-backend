@@ -39,8 +39,11 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
                 res.cookie("token", token, {
                     httpOnly: true,
                     secure: true,
-                    sameSite: 'strict',
-                    domain: "elijames.xyz"
+                    // sameSite: 'strict',
+                    // domain: "elijames.xyz"
+                });
+                res.cookie("username", User.name, {
+                    secure: true
                 });
                 return res.json(results);
             }
